@@ -1,0 +1,30 @@
+.Footer {
+
+
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    height: 45px;
+    width: 100%;
+
+    background: #102331;
+    grid-area: 2 / span 2 / 2 / span 2;
+    margin-left: -14px;
+    margin-right: -14px;
+}
+
+.Footer p {
+ padding-right: 40px;
+ margin : 0;
+
+ display: flex;
+ align-items: center;
+}
+
+p img {
+    height: 28px;
+    margin-left: 5px;
+}

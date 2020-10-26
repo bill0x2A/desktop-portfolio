@@ -1,0 +1,107 @@
+.Window {
+    height : 100%;
+    width : 100%;
+    margin-top: 30px;
+
+    background: #1d3557;
+
+
+    border-radius: 5px;
+    border-top: 0px;
+    border-left: 0px;
+    position: relative;
+
+    box-sizing: border-box;
+
+    text-align: center;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+    overflow: scroll;
+
+    float: left;
+
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
+}
+
+.Window span {
+    bottom : -20px !important;
+}
+
+.Header {
+    z-index: 10;
+    position: absolute;
+    height: 30px !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: gray;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+    box-shadow: 8px 8px 5px rgba(0,0,0,0.1);
+}
+
+.Header img {
+    user-drag: none; 
+    user-select: none;
+-moz-user-select: none;
+-webkit-user-drag: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+height: 20px;
+padding-left: 5px;
+}
+
+.Container {
+    margin: 100px;
+}
+
+.Button {
+    width : 12px;
+    height: 12px;
+    border-radius: 10px;
+    margin: 5px;
+
+    cursor: pointer;
+
+}
+
+.Buttons {
+    display: flex;
+}
+
+.Maximise {
+    background: green;
+}
+
+.Minimise {
+    background-color: orange;
+}
+
+.Close {
+    background-color: red;
+}
+
+.Maximise:hover {
+    background: lightgreen;
+}
+
+.Minimise:hover {
+    background: lightsalmon;
+}
+
+.Close:hover {
+    background: salmon;
+}
+
+.Maximised {
+    width: 100vw;
+    height : calc(100vh - 80px);
+    top: 0;
+    left : 0;
+}

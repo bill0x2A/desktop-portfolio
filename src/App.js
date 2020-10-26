@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Taskbar from './containers/Taskbar/Taskbar';
+import Window from './components/Window/Window';
+import Sticky from './components/Sticky/Sticky';
 
-function App() {
+import { connect } from 'react-redux';
+
+const app = props => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {props.stickies.map(sticky => {
+        return <Sticky windowID = {sticky.windowID}/>
+      })}
+      {props.windows.map(window => {
+        return <Window windowID = {window.windowID}/>
+      })}
+      <Taskbar/>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    windows : state.windows,
+    stickies : state.stickies
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(app);

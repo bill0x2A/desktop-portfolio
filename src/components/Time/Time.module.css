@@ -1,0 +1,10 @@
+.Time {
+    color: white;
+    padding-right: 20px;
+}
+
+.Time p {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+}
