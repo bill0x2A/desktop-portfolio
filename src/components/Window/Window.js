@@ -6,6 +6,7 @@ import { Resizable, ResizableBox } from 'react-resizable';
 import Billfinex from '../../subapps/billfinex/App';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
+import { timeHours } from 'd3';
 
 
 class Window extends Component {
@@ -20,6 +21,14 @@ class Window extends Component {
     }
 
     render () {
+        let content = null;
+
+        switch(this.props.appID){
+            case "billfinex":
+                content = <Billfinex/>
+                break;
+        }
+
         return (
             <Draggable
                 handle = ".handle"
@@ -27,7 +36,14 @@ class Window extends Component {
                 >
         <ResizableBox width={400}
                       height={200}
-                      minConstraints={[100, 100]}>
+                      minConstraints={[100, 100]}
+                      onResizeStop = {(e, data) => {
+                          if(this.props.appID === "billfinex"){
+                              return this.props.resize(data.size.width);
+                          } else {
+                              return null;
+                          }
+                      }}>
             <div style={{zIndex : this.props.z, height:"100%"}}>
             <div className = {[classes.Header, "handle", this.state.maximised ? classes.Maximised : null].join(' ')}>
                 <img src={v}/>
@@ -47,7 +63,12 @@ class Window extends Component {
 
         )
     }
+    componentDidMount = () => {
+        this.props.resize(400);
+    }
 }
+
+
 
 const mapStateToProps = state => {
     return {
@@ -58,7 +79,8 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-        close : windowID => dispatch({type : actionTypes.CLOSE_WINDOW, windowID : windowID})
+        close : windowID => dispatch({type : actionTypes.CLOSE_WINDOW, windowID : windowID}),
+        resize : width => dispatch({type : actionTypes.RESIZE_WINDOW, width: width})
     }
   }
 

@@ -3,8 +3,7 @@ import classes from './TrayApplication.module.css';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import ReactTooltip from 'react-tooltip';
-
-import v from '../../assets/V.png';
+import * as assets from '../../assets/index';
 
 const trayApplication = props => {
 
@@ -14,7 +13,7 @@ const trayApplication = props => {
             onClick = {() => props.activate(props.appID)}
             data-tip = {props.appID}
             >
-            <img src={props.logo}/>
+            <img src={assets[props.appID]}/>
             <ReactTooltip place = "right" type ="info" offset = {{'top' : 15}} />
         </div>
             )

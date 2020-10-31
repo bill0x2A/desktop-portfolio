@@ -7,7 +7,7 @@ import EthLogo from '../../assets/imgs/ETH.svg';
 import LINKLogo from '../../assets/imgs/LINK.svg';
 import BtcLogo from '../../assets/imgs/BTC.svg';
 import EosLogo from '../../assets/imgs/EOS.svg';
-
+import {connect} from 'react-redux';
 
 
 class Graph extends Component {
@@ -86,7 +86,7 @@ d3.csv(data).then(starterPrices => {
 
             }
             const margin = {top: 5, right: 20, bottom: 60, left: 50},
-            w = this.props.width - margin.left - margin.right - 4,
+            w = this.props.width - margin.left - margin.right - 520,
             h = 502 - margin.top - margin.bottom;
     
             var svg = d3.select("#container")
@@ -574,5 +574,11 @@ shouldComponentUpdate = (nextProps) => {
 
 }
 
+const mapStateToProps = state => {
+    return {
+      width : state.width
+    }
+  }
 
-export default Graph;
+
+export default connect(mapStateToProps, null)(Graph);

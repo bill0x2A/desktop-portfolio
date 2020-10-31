@@ -17,6 +17,8 @@ import Alert from './containers/Alert/Alert';
 import Tutorial from './containers/Tutorial/Tutorial';
 import classes from './App.module.css';
 import Particles from './containers/Confetti/Confetti';
+import appClasses from './App.module.css';
+import {connect} from 'react-redux';
 
 class App extends Component {
 
@@ -88,12 +90,13 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    // this.updateWindowDimensions();
+   // window.addEventListener('resize', this.updateWindowDimensions);
   }
 
   updateWindowDimensions = () => {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+    const newWidth = document.getElementById('Billfinex').parentElement.clientWidth;
+    this.setState({ width: newWidth, height: window.innerHeight });
   }
 
   changeShowTickerHandler = () => {
@@ -316,9 +319,11 @@ class App extends Component {
       alert = <Alert/>
     }
 
+    console.log("[App.js'] ", this.props.width);
+
 
     return (
-      <div className="App">
+      <div className={appClasses.App} id = "Billfinex">
         {this.state.particles.map(id => (
           <Particles key={id} count={Math.floor(innerWidth / 20)}/>
         ))}
@@ -351,7 +356,7 @@ class App extends Component {
           </Sidebar>
           <Right>
             <Graph
-              width = {newWidth}
+              width = {this.props.width}
               coin={this.state.selectedCoin}
               trend={"normal"}
               changePrice={newPrices => {this.priceChangeHandler(newPrices)}}
@@ -359,10 +364,10 @@ class App extends Component {
               checkOrderHandler = {this.checkOrderHandler}
               className = {classes.Graph}
               />
-            <Dropdown name={"ORDERS (" + this.state.orders.length + ")"} width = {newWidth} click = {this.changeShowOrdersHandler} show = {this.state.showOrders}>
+            <Dropdown name={"ORDERS (" + this.state.orders.length + ")"} dynamic click = {this.changeShowOrdersHandler} show = {this.state.showOrders}>
                 <Orders orders={this.state.orders} cancel = {(oID) => this.checkCancelConfirmation(oID)} cryptos = {this.state.cryptos}/>
             </Dropdown>
-            <Dropdown name={"ORDER HISTORY (" + this.state.orderHistory.length + ")"} width = {newWidth} click = {this.changeShowOrderHistoryHandler} show = {this.state.showOrderHistory}>
+            <Dropdown name={"ORDER HISTORY (" + this.state.orderHistory.length + ")"} dynamic click = {this.changeShowOrderHistoryHandler} show = {this.state.showOrderHistory}>
                 <Orders history orders={this.state.orderHistory} cancel = { () => console.log('') }/>
             </Dropdown>
           </Right>         
@@ -371,6 +376,12 @@ class App extends Component {
 
       </div>
     );}
+}
+
+const mapStateToProps = state => {
+  return {
+    width : state.width
+  }
 }
 
 export default App;

@@ -1,0 +1,58 @@
+
+.Shortcut {
+    height: 80px;
+    width: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    cursor: pointer;
+
+    margin: 20px;
+
+    z-index: 0;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.Shortcut img {
+    height : 50px;
+    width  : auto;
+    user-select: none;
+    user-drag: none; 
+    user-select: none;
+-moz-user-select: none;
+-webkit-user-drag: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+}
+
+.Shortcut:hover {
+    background-color: rgba(66, 135, 245, 0.3);
+    border: 2px solid rgb(66, 135, 245);
+}
+
+.BottomRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.BottomRow img {
+    height: 15px;
+    width: 15px;
+
+    position: absolute;
+    top: 0;
+    right : 0;
+
+    margin-left: 8px
+}
+
+.BottomRow p {
+    margin : 0;
+    text-align: center;
+    white-space: nowrap;
+}

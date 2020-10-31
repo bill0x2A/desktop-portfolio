@@ -12,11 +12,11 @@ const initialState = {
     applications : [
         {
             appID: "billfinex",
-            logo : assets.v
+            defaultPosition : {x: 0, y: 0}
         },
         {
             appID : "sticky",
-            logo  : assets.sticky
+            defaultPosition : {x: 0, y: 0}
         }
     ]
 };
@@ -49,6 +49,11 @@ const reducer = ( state = initialState, action ) => {
                 return {
                     ...state,
                     currentZ : state.currentZ + 1
+                }
+        case actionTypes.RESIZE_WINDOW:
+                return {
+                    ...state,
+                    width : action.width
                 }
     }
     return state;

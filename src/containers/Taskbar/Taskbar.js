@@ -16,7 +16,6 @@ class Taskbar extends Component {
                 {this.props.apps.map(app =>{ 
                 console.dir(app);
                 return (<TrayApplication appID = {app.appID}
-                                        logo = {app.logo}
                                         />)})}
                 
                 </div>

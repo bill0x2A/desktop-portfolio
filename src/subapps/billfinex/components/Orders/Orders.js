@@ -11,7 +11,6 @@ class Orders extends Component {
 
     if(this.props.orders){
         content = this.props.orders.map(order => <Order cancel = {() => {
-            console.log("OrderID!" + order.oID);
             this.props.cancel(order.oID)}
         }
             order={order}
@@ -23,7 +22,7 @@ class Orders extends Component {
     }
     
     return(
-        <div className={classes.Orders} onHover={this.test}>
+        <div className={classes.Orders}>
             <div className={classes.Header}>
             <span>Trading Pair</span>
             <span>Type</span>

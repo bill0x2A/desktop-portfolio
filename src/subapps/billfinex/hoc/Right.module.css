@@ -3,5 +3,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-left: 14px;
+
+    grid-column: 2 / 3;
 }

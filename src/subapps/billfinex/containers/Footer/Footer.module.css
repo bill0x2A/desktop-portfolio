@@ -11,9 +11,7 @@
     width: 100%;
 
     background: #102331;
-    grid-area: 2 / span 2 / 2 / span 2;
-    margin-left: -14px;
-    margin-right: -14px;
+    /* grid-area: 2 / span 2 / 2 / span 2; */
 }
 
 .Footer p {

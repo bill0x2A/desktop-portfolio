@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Dropdown.module.css';
-import Draggable from 'react-draggable';
+import {connect} from 'react-redux';
 
 const dropdown = (props) => {
     let content = <div className = {classes.NoShow}></div>,
@@ -12,15 +12,19 @@ const dropdown = (props) => {
     }
 
     return (
-        <Draggable>
-        <div className={classes.Container} style={{width : props.width}}>
+        <div className={classes.Container} style={props.dynamic ? {width : props.width - 516} : null}>
             <div onClick = {props.click} className = {classes.Header}><span className={rotate}>&#10148;</span>  {props.name}</div>
             {content}
         </div>
-        </Draggable>
 
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        width : state.width
+    } 
+}
 
-export default dropdown;
+
+export default connect(mapStateToProps, null)(dropdown);

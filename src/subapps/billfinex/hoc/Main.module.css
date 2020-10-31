@@ -4,7 +4,7 @@
     height: 100%;
 
     display: grid;
-    grid-template-columns: 428px 1fr;
+    grid-template-columns: 450px 1fr;
     grid-template-rows: 1fr 45px;
     grid-gap: 20px;
 
