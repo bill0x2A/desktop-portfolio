@@ -7,9 +7,7 @@ const art = [assets.plazzy, assets.cat, assets.glue, assets.greenman, assets.luv
 const fileExplorer = props => {
     return (
         <div className = {classes.fileExplorer}>
-            {art.map(artwork => {
-                <img src={artwork}/>, 
-            })}
+            {art.map(artwork => <img src={artwork}/>)}
         </div>
     )
 }
