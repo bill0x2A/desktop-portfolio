@@ -3,7 +3,11 @@ import * as assets from '../../assets/index';
 
 const initialState = {
     currentZ : 0,
-    windows : [],
+    latestClicked : null,
+    windows : [
+       { windowID : "3f9jn0293mf",
+        appID : "imageviewer"}
+    ],
     stickies : [
         {
             windowID : "4nm380945nv"
@@ -48,7 +52,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.CLICK_WINDOW:
                 return {
                     ...state,
-                    currentZ : state.currentZ + 1
+                    currentZ : state.currentZ + 1,
+                    latestClicked : action.windowID
                 }
         case actionTypes.RESIZE_WINDOW:
                 return {

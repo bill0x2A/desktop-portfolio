@@ -4,6 +4,11 @@
     display: inline;
 }
 
+.Container img {
+    height: 15px;
+    width : 15px;
+}
+
 .CoinDisplay {
     display: flex;
     align-items: center;

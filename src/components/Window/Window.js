@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import classes from './Window.module.css';
 import Draggable from 'react-draggable';
-import v from '../../assets/V.png';
+import * as assets from '../../assets/index';
 import { Resizable, ResizableBox } from 'react-resizable';
 import Billfinex from '../../subapps/billfinex/App';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import { timeHours } from 'd3';
+import ImageViewer from '../ImageViewer/ImageViewer';
 
 
 class Window extends Component {
 
     state = {
-        maximised : false
+        maximised : false,
+        zIndex : null
     }
 
     maximise = () => {
@@ -20,12 +22,20 @@ class Window extends Component {
         this.setState({maximised: !maximise});
     }
 
+    updateZHandler = () => {
+            this.setState({zIndex : this.props.z + 1});
+    }
+
     render () {
         let content = null;
+    
 
         switch(this.props.appID){
             case "billfinex":
                 content = <Billfinex/>
+                break;
+            case "imageviewer":
+                content = <ImageViewer/>
                 break;
         }
 
@@ -43,11 +53,17 @@ class Window extends Component {
                           } else {
                               return null;
                           }
-                      }}>
-            <div style={{zIndex : this.props.z, height:"100%"}}>
+                      }}
+                      style = {{zIndex : this.state.zIndex}}>
+            <div style={{height:"100%"}}
+                 onClick ={() => {
+                     this.props.clicked(this.props.windowID);
+                     this.updateZHandler();
+                     }}>
             <div className = {[classes.Header, "handle", this.state.maximised ? classes.Maximised : null].join(' ')}>
-                <img src={v}/>
-                Billfinex
+                <img src={assets[this.props.appID]} alt={this.props.appID}/>
+                <h1>{this.state.zIndex}</h1>
+                {this.props.appID[0].toUpperCase() + this.props.appID.substring(1)}
                 <div className={classes.Buttons}>
                     <div onClick = {this.maximise} className = {[classes.Maximise, classes.Button].join(' ')}></div>
                     <div onClick = {this.minimise}className = {[classes.Minimise, classes.Button].join(' ')}></div>
@@ -55,7 +71,8 @@ class Window extends Component {
                 </div>
             </div>
             <div className={[classes.Window, this.state.maximised ? classes.Maximised : null].join(' ')}>
-                <Billfinex/>
+                {this.props.children}
+                {content}
             </div>
             </div>
             </ResizableBox>
@@ -65,6 +82,8 @@ class Window extends Component {
     }
     componentDidMount = () => {
         this.props.resize(400);
+        this.setState({zIndex : this.props.z + 1});
+        this.props.clicked(this.props.windowID);
     }
 }
 
@@ -73,14 +92,16 @@ class Window extends Component {
 const mapStateToProps = state => {
     return {
       windows : state.windows,
-      z : state.currentZ
+      z : state.currentZ,
+      latestClicked : state.latestClicked
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
-        close : windowID => dispatch({type : actionTypes.CLOSE_WINDOW, windowID : windowID}),
-        resize : width => dispatch({type : actionTypes.RESIZE_WINDOW, width: width})
+        close   : windowID  => dispatch({type : actionTypes.CLOSE_WINDOW, windowID : windowID}),
+        resize  : width     => dispatch({type : actionTypes.RESIZE_WINDOW, width: width}),
+        clicked : windowID  => dispatch({type : actionTypes.CLICK_WINDOW, windowID : windowID})
     }
   }
 

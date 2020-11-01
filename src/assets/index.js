@@ -11,6 +11,7 @@ import LuvSic from './luv[sic].png';
 import Plazzy from './PlazzyStripFinal.png';
 import TelephonePole from './TelephonePole.png';
 import Me from './With.png';
+import Imageviewer from './imageviewer.png';
 
 export const hourglass = Hourglass;
 export const bliss = Bliss;
@@ -25,3 +26,4 @@ export const luvsic = LuvSic;
 export const plazzy = Plazzy;
 export const telephonePole = TelephonePole;
 export const me = Me;
+export const imageviewer = Imageviewer;

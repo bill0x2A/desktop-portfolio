@@ -29,7 +29,6 @@
 }
 
 .Header {
-    z-index: 10;
     position: absolute;
     height: 30px !important;
     border-top-left-radius: 5px;

@@ -33,7 +33,7 @@ class Tutorial extends Component {
                 </div>
                 <div className={classes.Content}>
                 <p>This is a simplified imitation of a cryptocurrency exchange. All the price data is generated in your browser, note that if you have another tab selected data generation will stop.</p>
-                <p>The different coins all have their own behaiviours, try and turn your starting capital we've given you into untold riches!</p>
+                <p>The different coins all have their own behaviours, try and turn your starting capital we've given you into untold riches!</p>
                 <p>Buy and sell your coins by placing buy and sell orders on the left</p>
                 <p>Click through the different coins to see all the various price action!</p>
                 <p>Enjoy playing around, if you hit your set goal you'll get <strong>a nice surprise!</strong></p>

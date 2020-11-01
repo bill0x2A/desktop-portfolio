@@ -4,17 +4,19 @@ import Sticky from './components/Sticky/Sticky';
 import DesktopShortcut from './components/DesktopShortcut/DesktopShortcut';
 
 import { connect } from 'react-redux';
-import fileExplorer from './components/FileExplorer/FileExplorer';
+import FileExplorer from './components/ImageViewer/ImageViewer';
+import classes from './App.module.css';
 
 
 const app = props => {
   return (
     <div className="App">
-      <fileExplorer/>
+      <div className = {classes.DesktopIcons}>
       <DesktopShortcut appID = "billfinex" type = "app"/>
       <DesktopShortcut appID = "jane"
                        title = "Jane Chase"
                        link = "https://www.billytestserver.co.uk/"/>
+      </div>
 
       {props.stickies.map(sticky => {
         return <Sticky windowID = {sticky.windowID}/>
