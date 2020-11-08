@@ -6,11 +6,13 @@ import DesktopShortcut from './components/DesktopShortcut/DesktopShortcut';
 import { connect } from 'react-redux';
 import FileExplorer from './components/ImageViewer/ImageViewer';
 import classes from './App.module.css';
+import Calculator from './components/Calculator/Calculator';
 
 
 const app = props => {
   return (
     <div className="App">
+      <Calculator/>
       <div className = {classes.DesktopIcons}>
       <DesktopShortcut appID = "billfinex" type = "app"/>
       <DesktopShortcut appID = "jane"

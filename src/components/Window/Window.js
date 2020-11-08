@@ -56,13 +56,12 @@ class Window extends Component {
                       }}
                       style = {{zIndex : this.state.zIndex}}>
             <div style={{height:"100%"}}
-                 onClick ={() => {
+                 onMouseDown ={() => {
                      this.props.clicked(this.props.windowID);
                      this.updateZHandler();
                      }}>
             <div className = {[classes.Header, "handle", this.state.maximised ? classes.Maximised : null].join(' ')}>
                 <img src={assets[this.props.appID]} alt={this.props.appID}/>
-                <h1>{this.state.zIndex}</h1>
                 {this.props.appID[0].toUpperCase() + this.props.appID.substring(1)}
                 <div className={classes.Buttons}>
                     <div onClick = {this.maximise} className = {[classes.Maximise, classes.Button].join(' ')}></div>
