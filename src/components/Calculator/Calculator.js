@@ -5,6 +5,8 @@ import { forceLink } from 'd3';
 import { isFunction } from 'lodash';
 import { connect } from 'react-redux';
 
+import * as actionTypes from '../../store/actions/actionTypes';
+
 const buttons = [
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "/", "*"
 ]
@@ -108,10 +110,21 @@ class Calculator extends Component {
         this.props.clicked(this.props.windowID);
     }
 
+    updateZHandler = () => {
+        this.setState({zIndex : this.props.z + 1});
+    }
+
 
     render () { 
         return (
-            <div className = {classes.Calculator}>
+            <Draggable>
+            <div className = {classes.Calculator}
+                 style ={{zIndex : this.state.zIndex, position: "absolute"}}
+                 onClick = {() => { this.props.click(this.props.windowID);
+                                        this.updateZHandler();
+                                        console.log("clicked");}}>
+                <div className={classes.TopSpan}><div className = {classes.Close}
+                                                      onClick = {() => this.props.close(this.props.windowID)}/></div>
                 <div className = {classes.Screen}>
                     {this.state.screen.join('')}
                 </div>
@@ -124,6 +137,7 @@ class Calculator extends Component {
                     ))}
                 </div>
             </div>
+            </Draggable>
         )
     }
 };
@@ -134,4 +148,11 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps)(Calculator);
+  const mapDispatchToProps = dispatch => {
+    return {
+        close   : windowID => dispatch({type: actionTypes.CLOSE_WINDOW, windowID : windowID}),
+        clicked : windowID  => dispatch({type : actionTypes.CLICK_WINDOW, windowID : windowID})
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calculator);

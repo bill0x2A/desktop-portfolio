@@ -27,18 +27,6 @@ class Window extends Component {
     }
 
     render () {
-        let content = null;
-    
-
-        switch(this.props.appID){
-            case "billfinex":
-                content = <Billfinex/>
-                break;
-            case "imageviewer":
-                content = <ImageViewer/>
-                break;
-        }
-
         return (
         <Draggable handle = '.handle'>
             <div style ={{position: "absolute", display:'flex', zIndex: this.state.z}}>
@@ -71,7 +59,6 @@ class Window extends Component {
                     </div>
                     <div className={[classes.Window, this.state.maximised ? classes.Maximised : null].join(' ')}>
                         {this.props.children}
-                        {content}
                     </div>
                     </div>
                     </ResizableBox>

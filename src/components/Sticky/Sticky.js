@@ -13,17 +13,17 @@ class Sticky extends Component {
 
     updateZHandler = () => {
         this.setState({zIndex : this.props.z + 1});
-}
+    }
 
     render () {
-        console.log("STICKY ZINDEX", this.state.zIndex);
+
     const content = <div className={classes.Note}>
                         <h2>👋 Welcome to my portfolio site!</h2>
                         <p>You can view my various projects by opening up the apps on your desktop</p>
                     </div>;
+
     return (
-        <Draggable
-            handle = ".handle">
+        <Draggable handle = ".handle">
         <div style ={{position: "absolute", display:'flex', zIndex: this.state.zIndex}}>
         <ResizableBox width={400}
                       height={200}
@@ -33,12 +33,10 @@ class Sticky extends Component {
                      this.props.click(this.props.windowID);
                      this.updateZHandler();
                      }}>
-            <div className = {["handle", classes.Header].join(' ')}
->
-                    {this.state.zIndex}
-                <div onClick = {this.props.close}
+            <div className = {["handle", classes.Header].join(' ')}>
+                <div onClick = {() => this.props.close(this.props.windowID)}
                      className={classes.Close}>&#10008;</div>
-            </div>
+                </div>
             {content}
             </div>
         </ResizableBox>
@@ -60,7 +58,7 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-        close       : windowID => dispatch({type: actionTypes.CLOSE_STICKY, windowID : windowID}),
+        close   : windowID => dispatch({type: actionTypes.CLOSE_WINDOW, windowID : windowID}),
         clicked : windowID  => dispatch({type : actionTypes.CLICK_WINDOW, windowID : windowID})
     }
   }

@@ -8,6 +8,7 @@ import FileExplorer from './components/ImageViewer/ImageViewer';
 import classes from './App.module.css';
 import Calculator from './components/Calculator/Calculator';
 import Application from './hoc/Application';
+import Bugtracker from './subapps/bugtracker/Bugtracker';
 
 
 const app = props => {

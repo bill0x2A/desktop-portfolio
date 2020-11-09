@@ -3,6 +3,7 @@ import Billfinex from '../subapps/billfinex/App';
 import Sticky from '../components/Sticky/Sticky';
 import Imageviewer from '../components/ImageViewer/ImageViewer';
 import Calculator from '../components/Calculator/Calculator';
+import Bugtracker from '../subapps/bugtracker/Bugtracker';
 
 export const billfinex =  {
     appID: "billfinex",
@@ -35,4 +36,11 @@ export const calculator = {
     app : <Calculator/>
 }
 
-export const appList = [billfinex, sticky, imageviewer, calculator];
+export const bugtracker = {
+    appID : "bugtracker",
+    resizeable : true,
+    defaultWindow : true,
+    app : <Bugtracker/>
+}
+
+export const appList = [billfinex, sticky, imageviewer, calculator, bugtracker];

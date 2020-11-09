@@ -10,6 +10,7 @@ import Billfinex from '../subapps/billfinex/App';
 import Sticky from '../components/Sticky/Sticky';
 import Imageviewer from '../components/ImageViewer/ImageViewer';
 import Calculator from '../components/Calculator/Calculator';
+import Bugtracker from '../subapps/bugtracker/Bugtracker';
 
 
 const application = props => {
@@ -30,6 +31,8 @@ const application = props => {
                 return <Calculator windowID={wID}
                                    close={() => props.close(wID)}
                                    click = {() => props.clicked(wID)}/>
+            case "bugtracker":
+                return <Bugtracker/>
         }
     }
 
