@@ -11,7 +11,12 @@ class Sticky extends Component {
         zIndex : null
     }
 
+    updateZHandler = () => {
+        this.setState({zIndex : this.props.z + 1});
+}
+
     render () {
+        console.log("STICKY ZINDEX", this.state.zIndex);
     const content = <div className={classes.Note}>
                         <h2>👋 Welcome to my portfolio site!</h2>
                         <p>You can view my various projects by opening up the apps on your desktop</p>
@@ -19,26 +24,31 @@ class Sticky extends Component {
     return (
         <Draggable
             handle = ".handle">
+        <div style ={{position: "absolute", display:'flex', zIndex: this.state.zIndex}}>
         <ResizableBox width={400}
                       height={200}
-                      minConstraints={[100, 100]}
-                      style={{zIndex : this.state.zIndex}}>
-            <div style={{height:"100%"}} onMouseDown = {() => this.props.clicked(this.props.windowID)}>
+                      minConstraints={[100, 100]}>
+            <div style={{height:"100%", width: "100%"}}
+                 onMouseDown ={() => {
+                     this.props.click(this.props.windowID);
+                     this.updateZHandler();
+                     }}>
             <div className = {["handle", classes.Header].join(' ')}
-                onMouseDown = {this.props.placeOnTop}>
+>
                     {this.state.zIndex}
-                <div onClick = {() => this.props.close(this.props.windowID)}
+                <div onClick = {this.props.close}
                      className={classes.Close}>&#10008;</div>
             </div>
             {content}
             </div>
         </ResizableBox>
+        </div>
     </Draggable>
     )}
 
     componentDidMount = () => {
         this.setState({zIndex : this.props.z + 1});
-        this.props.clicked(this.props.windowID);
+        this.props.click();
     }
 }
 

@@ -14,7 +14,7 @@ class Window extends Component {
 
     state = {
         maximised : false,
-        zIndex : null
+        z : null
     }
 
     maximise = () => {
@@ -23,7 +23,7 @@ class Window extends Component {
     }
 
     updateZHandler = () => {
-            this.setState({zIndex : this.props.z + 1});
+            this.setState({z : this.props.z + 1});
     }
 
     render () {
@@ -40,53 +40,52 @@ class Window extends Component {
         }
 
         return (
-            <Draggable
-                handle = ".handle"
-                // bounds = {{top: 0}} removed for performance purposes...
-                >
-        <ResizableBox width={400}
-                      height={200}
-                      minConstraints={[100, 100]}
-                      onResizeStop = {(e, data) => {
-                          if(this.props.appID === "billfinex"){
-                              return this.props.resize(data.size.width);
-                          } else {
-                              return null;
-                          }
-                      }}
-                      style = {{zIndex : this.state.zIndex}}>
-            <div style={{height:"100%"}}
-                 onMouseDown ={() => {
-                     this.props.clicked(this.props.windowID);
-                     this.updateZHandler();
-                     }}>
-            <div className = {[classes.Header, "handle", this.state.maximised ? classes.Maximised : null].join(' ')}>
-                <img src={assets[this.props.appID]} alt={this.props.appID}/>
-                {this.props.appID[0].toUpperCase() + this.props.appID.substring(1)}
-                <div className={classes.Buttons}>
-                    <div onClick = {this.maximise} className = {[classes.Maximise, classes.Button].join(' ')}></div>
-                    <div onClick = {this.minimise}className = {[classes.Minimise, classes.Button].join(' ')}></div>
-                    <div onClick = {() => this.props.close(this.props.windowID)} className = {[classes.Close, classes.Button].join(' ')}></div>
+        <Draggable handle = '.handle'>
+            <div style ={{position: "absolute", display:'flex', zIndex: this.state.z}}>
+                <ResizableBox style = {{zIndex : this.state.z}}
+                            width={400}
+                            height={200}
+                            minConstraints={[400, 200]}
+                            onResizeStop = {(e, data) => {
+                                if(this.props.appID === "billfinex"){
+                                    return this.props.resize(data.size.width);
+                                } else {
+                                    return null;
+                                }
+                            }}
+                            style = {{zIndex : this.state.zIndex}}>
+                    <div style={{height:"100%", width:"100%"}}
+                        onMouseDown ={() => {
+                            this.props.click();
+                            this.updateZHandler();
+                            }}>
+                    <div className = {[classes.Header, "handle", this.state.maximised ? classes.Maximised : null].join(' ')}>
+                        <img src={assets[this.props.appID]} alt={this.props.appID}/>
+                        {this.state.zIndex}
+                        {this.props.appID[0].toUpperCase() + this.props.appID.substring(1)}
+                        <div className={classes.Buttons}>
+                            <div onClick = {this.maximise} className = {[classes.Maximise, classes.Button].join(' ')}></div>
+                            <div onClick = {this.minimise}className = {[classes.Minimise, classes.Button].join(' ')}></div>
+                            <div onClick = {() => this.props.close(this.props.windowID)} className = {[classes.Close, classes.Button].join(' ')}></div>
+                        </div>
+                    </div>
+                    <div className={[classes.Window, this.state.maximised ? classes.Maximised : null].join(' ')}>
+                        {this.props.children}
+                        {content}
+                    </div>
+                    </div>
+                    </ResizableBox>
                 </div>
-            </div>
-            <div className={[classes.Window, this.state.maximised ? classes.Maximised : null].join(' ')}>
-                {this.props.children}
-                {content}
-            </div>
-            </div>
-            </ResizableBox>
             </Draggable>
-
         )
     }
+
     componentDidMount = () => {
         this.props.resize(400);
-        this.setState({zIndex : this.props.z + 1});
-        this.props.clicked(this.props.windowID);
+        this.setState({z : this.props.z + 1});
+        this.props.click();
     }
 }
-
-
 
 const mapStateToProps = state => {
     return {
@@ -100,7 +99,7 @@ const mapStateToProps = state => {
     return {
         close   : windowID  => dispatch({type : actionTypes.CLOSE_WINDOW, windowID : windowID}),
         resize  : width     => dispatch({type : actionTypes.RESIZE_WINDOW, width: width}),
-        clicked : windowID  => dispatch({type : actionTypes.CLICK_WINDOW, windowID : windowID})
+        click   : windowID  => dispatch({type : actionTypes.CLICK_WINDOW, windowID : windowID})
     }
   }
 

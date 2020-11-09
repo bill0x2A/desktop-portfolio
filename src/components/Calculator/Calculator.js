@@ -3,6 +3,7 @@ import classes from './Calculator.module.css';
 import Draggable from 'react-draggable';
 import { forceLink } from 'd3';
 import { isFunction } from 'lodash';
+import { connect } from 'react-redux';
 
 const buttons = [
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "/", "*"
@@ -11,6 +12,7 @@ const buttons = [
 class Calculator extends Component {
 
     state = {
+        zIndex : null,
         elements : [],
         operations : [],
         screen : [],
@@ -101,9 +103,14 @@ class Calculator extends Component {
 
     }
 
-    render (){
+    componentDidMount = () => {
+        this.setState({zIndex : this.props.z + 1});
+        this.props.clicked(this.props.windowID);
+    }
+
+
+    render () { 
         return (
-            <Draggable>
             <div className = {classes.Calculator}>
                 <div className = {classes.Screen}>
                     {this.state.screen.join('')}
@@ -117,10 +124,14 @@ class Calculator extends Component {
                     ))}
                 </div>
             </div>
-            </Draggable>
-
         )
     }
 };
 
-export default Calculator;
+const mapStateToProps = state => {
+    return {
+        z : state.currentZ
+    }
+  }
+
+export default connect(mapStateToProps)(Calculator);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Taskbar.module.css';
-import { connect } from 'react-redux';
+import {appList} from '../../store/apps';
 
 import Time from '../../components/Time/Time';
 import HourglassLogo from '../../components/HourglassLogo/HourglassLogo';
@@ -13,8 +13,7 @@ class Taskbar extends Component {
             <div className={classes.Taskbar}>
                 <div style={{display : 'flex'}}>
                 <HourglassLogo/>
-                {this.props.apps.map(app =>{ 
-                console.dir(app);
+                {appList.map(app =>{ 
                 return (<TrayApplication appID = {app.appID}
                                         />)})}
                 
@@ -25,15 +24,5 @@ class Taskbar extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        apps : state.applications
-    }
-}
 
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Taskbar);
+export default Taskbar;

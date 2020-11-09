@@ -29,7 +29,6 @@ class ImageViewer extends Component {
     }
 
     render(){
-        console.log(this.state.index);
     return (
         <div className = {classes.Wrapper}>
                 <img src ={art[this.state.index]}/>

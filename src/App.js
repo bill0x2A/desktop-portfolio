@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import FileExplorer from './components/ImageViewer/ImageViewer';
 import classes from './App.module.css';
 import Calculator from './components/Calculator/Calculator';
+import Application from './hoc/Application';
 
 
 const app = props => {
   return (
     <div className="App">
-      <Calculator/>
       <div className = {classes.DesktopIcons}>
       <DesktopShortcut appID = "billfinex" type = "app"/>
       <DesktopShortcut appID = "jane"
@@ -20,11 +20,9 @@ const app = props => {
                        link = "https://www.billytestserver.co.uk/"/>
       </div>
 
-      {props.stickies.map(sticky => {
-        return <Sticky windowID = {sticky.windowID}/>
-      })}
-      {props.windows.map(window => {
-        return <Window windowID = {window.windowID} appID = {window.appID}/>
+
+      {props.openApps.map(app => {
+        return <Application windowID = {app.windowID} appID = {app.appID}/>
       })}
       <Taskbar/>
     </div>
@@ -33,8 +31,7 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    windows : state.windows,
-    stickies : state.stickies
+    openApps : state.openApps
   }
 }
 
